@@ -31,6 +31,15 @@ class SelectField extends Field {
 	protected $pretty = '';
 
 	/**
+	 * Class for ajax load select
+	 * Will be used by JS to print Selectize input
+	 *
+	 * @var string
+	 */
+	protected $load_ajax = '';
+
+
+	/**
 	 * Field constructor
 	 *
 	 * @since 5.0.0
@@ -46,6 +55,10 @@ class SelectField extends Field {
 			$this->pretty = 'notification-pretty-select';
 		}
 
+		if ( isset( $params['load_ajax'] ) && $params['load_ajax'] ) {
+			$this->load_ajax = 'notification-ajax-load';
+		}
+
 		parent::__construct( $params );
 
 	}
@@ -57,7 +70,7 @@ class SelectField extends Field {
 	 */
 	public function field() {
 
-		$css_classes = $this->pretty . ' ' . $this->css_class();
+		$css_classes = $this->ajax . ' test ' . $this->load_ajax  . ' ' . $this->css_class();
 
 		$html = '<select name="' . esc_attr( $this->get_name() ) . '" id="' . esc_attr( $this->get_id() ) . '" class="' . $css_classes . '" ' . $this->maybe_disable() . '>';
 

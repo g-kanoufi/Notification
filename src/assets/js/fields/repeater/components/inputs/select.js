@@ -56,7 +56,36 @@ Vue.component("notification-select", {
 		},
 		initSelectize() {
 			if (this.$el.classList.contains("notification-pretty-select")) {
-				this.selectized = jQuery(this.$el).selectize();
+				this.selectized = jQuery(this.$el).selectize({
+          valueField: 'user_email',
+          labelField: 'user_email',
+          searchField: 'user_email',
+          create: false,
+          render: {
+            option: function(item, escape) {
+              return '<div> <span class="user_email">' + escape(item.user_email) + '</span></div>';
+            }
+          },
+          load: function(query, callback) {
+            if (query.length < 3) {
+              return callback();
+            } else {
+            jQuery.ajax({
+              url: 'https://freshwp.local/wp-json/notification/v1/get-users?query=' + encodeURIComponent(query),
+              type: 'GET',
+              data: {
+                limit: 3,
+              },
+              error: function () {
+                callback();
+              },
+              success: function (res) {
+                callback(res.data.slice(0, 10));
+              }
+            });
+            }
+          }
+				});
 			}
 		}
 	}

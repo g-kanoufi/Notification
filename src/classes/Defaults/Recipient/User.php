@@ -62,7 +62,6 @@ class User extends Abstracts\Recipient {
 	public function input() {
 
 		$users = $this->get_all_users();
-
 		$opts = [];
 
 		foreach ( $users as $user ) {
@@ -75,6 +74,7 @@ class User extends Abstracts\Recipient {
 			'css_class' => 'recipient-value',                 // don't edit this!
 			'value'     => $this->get_default_value(),
 			'pretty'    => true,
+			'load_ajax' => true,
 			'options'   => $opts,
 		] );
 

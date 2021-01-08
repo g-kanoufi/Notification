@@ -56,6 +56,14 @@ class Api {
 				'callback' => [ new Controller\SelectInputController(), 'send_response' ],
 			],
 		];
+
+		$this->routes[] = [
+			'path' => '/get-users',
+			'args' => [
+				'methods'  => 'GET',
+				'callback' => [ new Controller\GetUsers(), 'send_response' ],
+			],
+		];
 	}
 
 	/**
